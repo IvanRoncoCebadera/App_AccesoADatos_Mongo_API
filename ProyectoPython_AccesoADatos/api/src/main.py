@@ -1,12 +1,12 @@
-from pymongo import MongoClient;
+from pymongo import MongoClient
 
-print("Hello world!!!")
+print('Hello World!')
 
-client = MongoClient("mongo_db://root:example@mongo:27017")
-db = client.testDb
+client = MongoClient("mongodb://root:example@mongo:27017")
+db = client.testdb
 
 try: db.command("serverStatus")
 except Exception as e: print(e)
-else: print("You are conected")
+else: print("You are connected!")
 
 client.close()
