@@ -1,6 +1,7 @@
+version: '3.1'
 services:
   mongo:
-    image: mongo:latest
+    image: mongo:6.0.13-jammy #Por alguna razón me estalla el contenedor por diferencia de versiones al poner mongo:6.0.13-jammy
     ports:
       - '27017:27017'
     volumes:
@@ -11,11 +12,18 @@ services:
       MONGO_INITDB_DATABASE: testdb
   
   api:
-    build: api/.
+    build: api/rest/.
     ports:
       - "8086:8086"
     environment:
       - PORT=8086
+    develop:
+      watch:
+        - action: sync
+          path: api/src
+          target: /usr/src/app
+        - action: rebuild
+          path: api/requirements.txt
 
 volumes:
   mongo_database:
